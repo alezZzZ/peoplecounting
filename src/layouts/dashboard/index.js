@@ -23,8 +23,14 @@ import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import StatisticsCoCreationLabCard from "examples/Cards/StatisticsCards/StatisticsCoCreationLabCard";
 // Data
 import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+import { useSelector } from 'react-redux'
 
 function Dashboard() {
+  const val = useSelector((state) => state.counter.value)
+  const currentDate = useSelector((state) => state.currentDate.value);
+  
+  const valCurrenteDate = `${val} - ${currentDate}`;
+
   // const { sales, tasks } = reportsLineChartData;
   const { sales } = reportsLineChartData;
   return (
@@ -39,12 +45,6 @@ function Dashboard() {
                 color="dark"
                 icon="weekend"
                 title="People"
-                count={281}
-                percentage={{
-                  color: "success",
-                  amount: "+55%",
-                  label: "than lask week",
-                }}
                 />
                 </MDBox>
             </Grid>
@@ -53,11 +53,7 @@ function Dashboard() {
                 <ReportsLineChart
                   color="success"
                   title="daily sales"
-                  description={
-                    <>
-                      (<strong>+15%</strong>) increase in today sales.
-                    </>
-                  }
+                  description={valCurrenteDate}
                   date="update every 20s"
                   chart={sales}
                 />

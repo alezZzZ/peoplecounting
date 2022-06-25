@@ -35,7 +35,9 @@ import configs from "examples/Charts/LineCharts/ReportsLineChart/configs";
 
 function ReportsLineChart({ color, title, description, date, chart }) {
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
-
+  console.log(data);
+  console.log(options);
+  console.log(new Date());
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox padding="1rem">

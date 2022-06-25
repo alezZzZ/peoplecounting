@@ -24,31 +24,34 @@ import Icon from "@mui/material/Icon";
 // Material Dashboard 2 React components
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { incrementByAmount } from "redux/peoplecounter";
+import { setCurrentDate } from "redux/currentDate";
 
- let people;
 
 
-const Clock = () => {
-  const init = new Date()
-  const [date, setDate] = useState(init)
+
+const PeopleCount = () => {
+  const dispatch = useDispatch()
   const tick = () => {
-    setDate(new Date())
+  const currentDate = new Date();
+    dispatch(incrementByAmount(Math.floor(Math.random() * 100)))
+    dispatch(setCurrentDate(currentDate.toLocaleTimeString()))
   }
 
   useEffect(() => {
-    const timerID = setTimeout(() => tick(), 10000)
+    const timerID = setTimeout(() => tick(), 5000)
     return () => {
       clearTimeout(timerID)
     }
-  }, [date])
-
-  return date.toLocaleTimeString()
+  })
+  return  useSelector((state) => state.counter.value)
 }
 
 function StatisticsCoCreationLabCard({ color, title, icon }) {
-  people = 1234;
   return (
+    
     <Card>
       <MDBox display="flex" justifyContent="space-between" pt={1} px={2} height="16rem">
         <MDBox
@@ -72,7 +75,7 @@ function StatisticsCoCreationLabCard({ color, title, icon }) {
           <MDTypography variant="button" fontWeight="light" color="text">
             {title}
           </MDTypography>
-          <MDTypography variant="h4">{people}</MDTypography>
+          <MDTypography variant="h4"><PeopleCount /></MDTypography>
         </MDBox>
       </MDBox>
       <Divider />
@@ -83,7 +86,7 @@ function StatisticsCoCreationLabCard({ color, title, icon }) {
             variant="button"
             fontWeight="bold"            
           />
-          <Clock />
+          {/* <Clock /> */}
         </MDTypography>
       </MDBox>
     </Card>
