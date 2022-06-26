@@ -22,17 +22,39 @@ import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import ReportsLineChart from "examples/Charts/LineCharts/ReportsLineChart";
 import StatisticsCoCreationLabCard from "examples/Cards/StatisticsCards/StatisticsCoCreationLabCard";
 // Data
-import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
+// import reportsLineChartData from "layouts/dashboard/data/reportsLineChartData";
 import { useSelector } from 'react-redux'
 
 function Dashboard() {
-  const val = useSelector((state) => state.counter.value)
-  const currentDate = useSelector((state) => state.currentDate.value);
-  
-  const valCurrenteDate = `${val} - ${currentDate}`;
+  const listVal = useSelector((state) => state.listVal.value)
+  const listDate = useSelector((state) => state.listDate.value);
+
+
+  console.log(listVal);
+
+  // useSelector((state) => state.counter.value)
+
+  console.log(listVal);
+  console.log(listDate);
+  const valCurrenteDate = "";
 
   // const { sales, tasks } = reportsLineChartData;
-  const { sales } = reportsLineChartData;
+  // const { sales } = reportsLineChartData;
+  // const labelsC = ["18:12:22","18:14:22","19:12:22"]
+  const labelsC = listDate
+  // const datasets = [44,33,87];
+  const datasets = listVal;
+  
+
+  // labelsC.push(currentDate);
+  // datasets.push(val);
+   
+  const peoplecounter = {
+    labels:labelsC,
+    datasets:{ label: "People", data:datasets },
+} 
+
+  // console.log({sales});
   return (
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
@@ -55,7 +77,7 @@ function Dashboard() {
                   title="daily sales"
                   description={valCurrenteDate}
                   date="update every 20s"
-                  chart={sales}
+                  chart={peoplecounter}
                 />
               </MDBox>
             </Grid>

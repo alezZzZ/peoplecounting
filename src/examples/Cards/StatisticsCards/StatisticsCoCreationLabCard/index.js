@@ -27,7 +27,8 @@ import MDTypography from "components/MDTypography";
 import React, {useEffect} from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { incrementByAmount } from "redux/peoplecounter";
-import { setCurrentDate } from "redux/currentDate";
+import { setCurrentDate } from "redux/listDate";
+import { setCurrentVal } from "redux/listVal";
 
 
 
@@ -36,12 +37,15 @@ const PeopleCount = () => {
   const dispatch = useDispatch()
   const tick = () => {
   const currentDate = new Date();
-    dispatch(incrementByAmount(Math.floor(Math.random() * 100)))
-    dispatch(setCurrentDate(currentDate.toLocaleTimeString()))
+  const lastVal = Math.floor(Math.random() * 100);
+  const lastDateTime = currentDate.toLocaleTimeString();
+    dispatch(incrementByAmount(lastVal));
+    dispatch(setCurrentVal(lastVal));
+    dispatch(setCurrentDate(lastDateTime));
   }
 
   useEffect(() => {
-    const timerID = setTimeout(() => tick(), 5000)
+    const timerID = setTimeout(() => tick(), 10000)
     return () => {
       clearTimeout(timerID)
     }

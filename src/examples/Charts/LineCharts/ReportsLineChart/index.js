@@ -31,13 +31,31 @@ import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
 
 // ReportsLineChart configurations
-import configs from "examples/Charts/LineCharts/ReportsLineChart/configs";
+ import configs from "examples/Charts/LineCharts/ReportsLineChart/configs";
 
 function ReportsLineChart({ color, title, description, date, chart }) {
+  // const peoplecounter = {
+  //     labels: ["18:12:22","18:14:22","19:12:22"],
+  //     datasets:{ label: "People", data:[44,33,87] },
+  // } 
   const { data, options } = configs(chart.labels || [], chart.datasets || {});
-  console.log(data);
-  console.log(options);
-  console.log(new Date());
+  // const data = "[12,34,12]";
+  // const options = "[12:22:00,13:22:12,12:45:11]";
+   // console.log(data);
+   // console.log(options);
+  // console.log(chart);
+  // console.log(peoplecounter);
+   
+
+
+
+  /* sales: {
+    labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    datasets: { label: "Mobile apps", data: [50, 40, 300, 320, 500, 350, 200, 230, 500] },
+  } */
+
+
+  // console.log(new Date());
   return (
     <Card sx={{ height: "100%" }}>
       <MDBox padding="1rem">

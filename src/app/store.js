@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from '../redux/peoplecounter'
-import currentDateReducer from '../redux/currentDate'
+import listDateReducer from '../redux/listDate'
+import listValReducer from '../redux/listVal'
 
 
 
 const reducer = {
   counter: counterReducer,
-  currentDate: currentDateReducer
+  listDate: listDateReducer,
+  listVal: listValReducer
 }
 
 const store = configureStore({
