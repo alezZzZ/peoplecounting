@@ -30,24 +30,41 @@ import { incrementByAmount } from "redux/peoplecounter";
 import { setCurrentDate } from "redux/listDate";
 import { setCurrentVal } from "redux/listVal";
 
+var lastVal="";
+var lastDateTime="";
 
 
+const fun = async()=>{
+  try{
+  const itemPeopleCountJson = await fetch("/peoplecount");
+  console.log("PeopleCount:"+itemPeopleCountJson);
+  var itemPeopleCount =  await itemPeopleCountJson.json(); 
+  const obj = JSON.parse(itemPeopleCount);
+  console.log("React->People Detected:"+obj.total_people_detected);
+  var currentDateMS = obj.timestamp;
+  var date = new Date(+currentDateMS);
+  lastVal = obj.total_people_detected;
+  lastDateTime = date.toLocaleTimeString();
+  console.log("React->Time Detection:"+lastDateTime);
+  }
+  catch(err){
+    console.error(err);
+  }
+};
 
 const PeopleCount = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const tick = () => {
-  const currentDate = new Date();
-  const lastVal = Math.floor(Math.random() * 100);
-  const lastDateTime = currentDate.toLocaleTimeString();
-    dispatch(incrementByAmount(lastVal));
-    dispatch(setCurrentVal(lastVal));
-    dispatch(setCurrentDate(lastDateTime));
+  fun();
+  dispatch(incrementByAmount(lastVal));
+  dispatch(setCurrentVal(lastVal));
+  dispatch(setCurrentDate(lastDateTime));
   }
 
   useEffect(() => {
     const timerID = setTimeout(() => tick(), 10000)
     return () => {
-      clearTimeout(timerID)
+      clearTimeout(timerID);
     }
   })
   return  useSelector((state) => state.counter.value)
@@ -57,7 +74,7 @@ function StatisticsCoCreationLabCard({ color, title, icon }) {
   return (
     
     <Card>
-      <MDBox display="flex" justifyContent="space-between" pt={1} px={2} height="16rem">
+      <MDBox display="flex" justifyContent="space-between" pt={1} px={2} height="6rem">
         <MDBox
           variant="gradient"
           bgColor={color}
@@ -79,8 +96,11 @@ function StatisticsCoCreationLabCard({ color, title, icon }) {
           <MDTypography variant="button" fontWeight="light" color="text">
             {title}
           </MDTypography>
-          <MDTypography variant="h4"><PeopleCount /></MDTypography>
+          
         </MDBox>
+      </MDBox>
+      <MDBox >
+        <MDTypography  textAlign="center" fontSize="6rem"><PeopleCount /></MDTypography>
       </MDBox>
       <Divider />
       <MDBox pb={2} px={2}>
@@ -90,7 +110,6 @@ function StatisticsCoCreationLabCard({ color, title, icon }) {
             variant="button"
             fontWeight="bold"            
           />
-          {/* <Clock /> */}
         </MDTypography>
       </MDBox>
     </Card>

@@ -28,33 +28,16 @@ import { useSelector } from 'react-redux'
 function Dashboard() {
   const listVal = useSelector((state) => state.listVal.value)
   const listDate = useSelector((state) => state.listDate.value);
-
-
-  console.log(listVal);
-
-  // useSelector((state) => state.counter.value)
-
   console.log(listVal);
   console.log(listDate);
   const valCurrenteDate = "";
-
-  // const { sales, tasks } = reportsLineChartData;
-  // const { sales } = reportsLineChartData;
-  // const labelsC = ["18:12:22","18:14:22","19:12:22"]
   const labelsC = listDate
-  // const datasets = [44,33,87];
-  const datasets = listVal;
-  
-
-  // labelsC.push(currentDate);
-  // datasets.push(val);
-   
+  const datasets = listVal;   
   const peoplecounter = {
     labels:labelsC,
     datasets:{ label: "People", data:datasets },
 } 
 
-  // console.log({sales});
   return (
     <DashboardLayout>
       {/* <DashboardNavbar /> */}
@@ -67,6 +50,7 @@ function Dashboard() {
                 color="dark"
                 icon="weekend"
                 title="People"
+                date="update every 10s"
                 />
                 </MDBox>
             </Grid>
@@ -74,9 +58,9 @@ function Dashboard() {
               <MDBox mb={3}>
                 <ReportsLineChart
                   color="success"
-                  title="daily sales"
+                  title="Last 10 detections"
                   description={valCurrenteDate}
-                  date="update every 20s"
+                  date="update every 10s"
                   chart={peoplecounter}
                 />
               </MDBox>
